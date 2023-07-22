@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventoController;
+use App\Http\Controllers\ComunicadoController;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,23 +18,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('evento.index');
-}) -> middleware("auth");
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Auth::routes();
+    Route::get('/evento', [EventoController::class, 'index'])->name('evento');
+    Route::post('/evento/agregar', [EventoController::class, 'store']);
+    Route::post('/evento/editar/{id}', [EventoController::class, 'edit']);
+    Route::post('/evento/actualizar/{evento}', [EventoController::class, 'update']);
+    Route::delete('/evento/borrar/{evento}', [EventoController::class, 'destroy']);
+    Route::post('/evento/mostrar', [EventoController::class, 'show']);
 
-Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/evento', [App\Http\Controllers\EventoController::class, 'index']);
-Route::post('/evento/agregar', [App\Http\Controllers\EventoController::class, 'store']);
-Route::post('/evento/editar/{id}', [App\Http\Controllers\EventoController::class, 'edit']);
-Route::post('/evento/actualizar/{evento}', [App\Http\Controllers\EventoController::class, 'update']);
-Route::delete('/evento/borrar/{evento}', [App\Http\Controllers\EventoController::class, 'destroy']);
-Route::post('/evento/mostrar', [App\Http\Controllers\EventoController::class, 'show']);
+    // Rutas CRUD de usuarios
+    Route::resource('users', UserController::class);
 
+    // Rutas para comunicados de usuario
+    Route::resource('comunicados', ComunicadoController::class);
+
+    // Rutas para CRUD de comunicados
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes();
 
 

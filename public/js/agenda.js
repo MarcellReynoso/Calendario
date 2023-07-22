@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     headerToolbar: {
       left: 'prev,next,today',
       center: 'title',
-      right: false,
+      right: 'dayGridMonth,timeGridWeek,listWeek',
     },
     events: {
       url: baseURL + "/evento/mostrar",

@@ -1,4 +1,11 @@
 @extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Calendario')
+
+@section('content_header')
+    <h1>Calendario de eventos</h1>
+@stop
 
 @section('content')
     <div class="container">
@@ -74,9 +81,13 @@
     </div>
 </div>
 
+@stop
 
 
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
 
-@endsection
-
-
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
