@@ -25,7 +25,24 @@
                     <input type="password" class="form-control" id="password" name="password">
                     <small class="text-muted">Deja este campo en blanco si no deseas cambiar la contraseña.</small>
                 </div>
-                <button type="submit" class="btn btn-primary">Actualizar</button>
+
+                <div class="mb-3">
+                    {!! Form::model($user, ['route' => ['users.update',$user], 'method' => 'put']) !!}
+                        @foreach ($roles as $role)
+                            <div>
+                                <label>
+                                    {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
+                                    {{$role->name}}
+                                </label>
+                            </div>
+                        @endforeach
+
+                        {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+
+
+                    {!! Form::close() !!}
+                </div>
+                {{-- <button type="submit" class="btn btn-primary">Actualizar</button> --}}
             </form>
         </div>
     </div>

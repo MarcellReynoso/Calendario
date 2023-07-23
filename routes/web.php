@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ComunicadoAdminController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ComunicadoController;
 use App\Models\User;
@@ -34,11 +35,14 @@ Route::middleware('auth')->group(function () {
 
     // Rutas CRUD de usuarios
     Route::resource('users', UserController::class);
+    
+    // Rutas para CRUD de comunicados
+    Route::get('admin/comunicados',[ComunicadoAdminController::class,'index'])->name('admin.comunicados');
 
     // Rutas para comunicados de usuario
     Route::resource('comunicados', ComunicadoController::class);
 
-    // Rutas para CRUD de comunicados
+    
 });
 
 Auth::routes();

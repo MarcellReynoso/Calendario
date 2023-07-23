@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuarios')
+@section('title', 'Comunicados')
 
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
@@ -10,10 +10,8 @@
 
 @section('content_header')
     <div class="d-flex justify-content-between">
-        <h1>Lista de usuarios</h1>
-        @can('users.create')
-        <a href="{{ route('users.create') }}" class="btn btn-primary">Crear nuevo usuario</a>
-        @endcan
+        <h1>Lista de comunicados</h1>
+        <a href="{{ route('comunicados.create') }}" class="btn btn-primary">Crear Comunicado</a>
     </div>
 @stop
 
@@ -29,31 +27,31 @@
             <table class="table table-striped" id="usuarios">
                 <thead>
                     <tr>
-                        {{-- <th>ID</th> --}}
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        {{-- <th>Creación</th> --}}
+                        <th>ID</th>
+                        <th>Tìtulo</th>
+                        <th>Contenido</th>
+                        <th>Creación</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($comunicados as $comunicado)
                         <tr>
-                            {{-- <td>{{ $user->id }}</td> --}}
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            {{-- <td>{{ $user->created_at->diffForHumans() }}</td> --}}
+                            <td>{{ $comunicado->id }}</td>
+                            <td>{{ $comunicado->titulo }}</td>
+                            <td>{{ $comunicado->contenido }}</td>
+                            <td>{{ $user->created_at->diffForHumans() }}</td>
                             <td class="text-center">
-                                @can('users.show')
-                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm">Ver</a>
+                                @can('comunicados.show')
+                                <a href="{{ route('comunicados.show', $comunicado->id) }}" class="btn btn-info btn-sm">Ver</a>
                                 @endcan
 
-                                @can('users.edit')
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">Editar</a>  
+                                @can('comunicados.edit')
+                                <a href="{{ route('comunicados.edit', $comunicado->id) }}" class="btn btn-primary btn-sm">Editar</a>  
                                 @endcan
 
-                                @can('users.destroy')
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block">
+                                @can('comunicados.destroy')
+                                <form action="{{ route('comunicados.destroy', $comunicado->id) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"

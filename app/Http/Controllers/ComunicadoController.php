@@ -13,8 +13,9 @@ class ComunicadoController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $comunicados = Comunicado::orderBy('created_at', 'desc')->get();
-        return view('comunicados.index', compact('comunicados'));
+        return view('comunicados.index', compact('comunicados','user'));
     }
     
     /**
@@ -52,32 +53,47 @@ class ComunicadoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comunicado $comunicado)
     {
-        //
+        return view('comunicados.show', compact('comunicado'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Comunicado $comunicado)
     {
-        //
+        return view('comunicados.edit', compact('comunicado'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Comunicado $comunicado)
     {
-        //
+        $request->validate([
+            'titulo' => 'required|string|max:255',
+            'contenido' => 'required|string|max:255',
+        ]);
+
+        // Actualizar los datos del usuario
+        $comunicado->titulo = $request->input('titulo');
+        $comunicado->contenido = $request->input('contenido');
+        
+        $comunicado->save();
+
+        // Actualizar roles y permisos si estás utilizando Spatie Laravel Permission
+        // ...
+
+        return redirect()->route('admin.comunicados')->with('success', 'Comunicado actualizado exitosamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comunicado $comunicado)
     {
-        //
+        $comunicado->delete();
+        return redirect()->route('admin.comunicados')->with('success', 'Comunicado eliminado exitosamente.');
     }
 }

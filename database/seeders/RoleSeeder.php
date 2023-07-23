@@ -18,6 +18,17 @@ class RoleSeeder extends Seeder
         $role1 = Role::create(['name' => 'Admin']);
         $role2 = Role::create(['name' => 'User']);
 
-        Permission::create(['name' => 'Panel administrador'])->assignRole($role1); // Ver las opciones de administrador
+
+        Permission::create(['name' => 'users.index'])->assignRole($role1,$role2); 
+        Permission::create(['name' => 'users.create'])->assignRole($role1); 
+        Permission::create(['name' => 'users.show'])->assignRole($role1); 
+        Permission::create(['name' => 'users.edit'])->assignRole($role1); 
+        Permission::create(['name' => 'users.destroy'])->assignRole($role1);
+        
+        Permission::create(['name' => 'admin.comunicados'])->assignRole($role1); 
+        Permission::create(['name' => 'comunicados.create'])->assignRole($role1); 
+        Permission::create(['name' => 'comunicados.show'])->assignRole($role1); 
+        Permission::create(['name' => 'comunicados.edit'])->assignRole($role1); 
+        Permission::create(['name' => 'comunicados.destroy'])->assignRole($role1); 
     }
 }

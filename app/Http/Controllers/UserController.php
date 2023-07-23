@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -46,11 +47,15 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact('user','roles'));
     }
 
     public function update(Request $request, User $user)
     {
+
+        $user -> roles()->sync($request -> roles);
+
         // Validar los datos del formulario antes de actualizarlos
         $request->validate([
             'name' => 'required|string|max:255',
