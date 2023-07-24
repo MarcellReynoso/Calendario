@@ -23,6 +23,17 @@
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
+
+                <div class="mb-3">
+                    <label for="roles" class="form-label">Roles</label><br>
+                    @foreach ($roles as $role)
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="roles[]" value="{{ $role->id }}"> {{ $role->name }}
+                        </label>
+                        <br>
+                    @endforeach
+                </div>
+
                 <button type="submit" class="btn btn-primary">Crear</button>
             </form>
         </div>

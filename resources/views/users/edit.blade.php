@@ -27,22 +27,16 @@
                 </div>
 
                 <div class="mb-3">
-                    {!! Form::model($user, ['route' => ['users.update',$user], 'method' => 'put']) !!}
-                        @foreach ($roles as $role)
-                            <div>
-                                <label>
-                                    {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
-                                    {{$role->name}}
-                                </label>
-                            </div>
-                        @endforeach
-
-                        {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
-
-
-                    {!! Form::close() !!}
+                    <label for="roles" class="form-label">Roles</label><br>
+                    @foreach ($roles as $role)
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="roles[]" value="{{ $role->id }}" @if($user->roles->contains($role->id)) checked @endif> {{ $role->name }}
+                        </label>
+                        <br>
+                    @endforeach
                 </div>
-                {{-- <button type="submit" class="btn btn-primary">Actualizar</button> --}}
+
+                <button type="submit" class="btn btn-primary">Actualizar</button>
             </form>
         </div>
     </div>
