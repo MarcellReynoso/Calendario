@@ -317,7 +317,7 @@ return [
 
         ['header' => 'ADMINISTRACIÓN'],
             [
-                'text' => 'Usuarios',
+                'text' => 'Directorio',
                 'url'  => 'users',
                 'icon' => 'fas fa-fw fa-user',
             ],
