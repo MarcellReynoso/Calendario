@@ -51,8 +51,8 @@
                                 </div>
 
                                 <div class="col-lg-6 text-center">
-                                    <img src="{{asset('img/zapatos.png')}}"
-                                    style="width: 100%;">
+                                    <img src="{{asset('img/zapatos6.jpeg')}}"
+                                    style="width: 100%">
                                 </div>
 
                             </div>
