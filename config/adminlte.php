@@ -303,16 +303,17 @@ return [
 
         // Sidebar items:
         ['header' => 'MENU'],
-        [
-            'text' => 'Comunicados',
-            'icon' => 'fas fa-fw fa-bell',
-            'url'  => 'comunicados',
-        ],
-        
+                
         [
             'text' => 'Calendario',
             'icon' => 'far fa-fw fa-calendar',
             'route'  => 'evento',
+        ],
+
+        [
+            'text' => 'Comunicados',
+            'icon' => 'fas fa-fw fa-bell',
+            'url'  => 'comunicados',
         ],
 
         ['header' => 'ADMINISTRACIÓN'],
