@@ -21,6 +21,11 @@
                     <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
                 </div>
                 <div class="mb-3">
+                    <label for="phone" class="form-label">Número Telefónico</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
+                </div>
+                
+                <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password">
                     <small class="text-muted">Deja este campo en blanco si no deseas cambiar la contraseña.</small>

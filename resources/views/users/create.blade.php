@@ -19,6 +19,13 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Número Telefónico</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}">
+                </div>
+                
+
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password" required>

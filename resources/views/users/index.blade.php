@@ -33,6 +33,7 @@
                         <th>Nombre</th>
                         <th>Email</th>
                         {{-- <th>Creación</th> --}}
+                        <th>Número telefónico</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -43,6 +44,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             {{-- <td>{{ $user->created_at->diffForHumans() }}</td> --}}
+                            <td>{{ $user->phone ?? 'N/A' }}</td>
                             <td class="text-center">
                                 @can('users.show')
                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm">Ver</a>

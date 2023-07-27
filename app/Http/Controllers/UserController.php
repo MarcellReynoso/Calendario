@@ -23,24 +23,27 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Validar los datos del formulario antes de almacenarlos
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:8',
-        ]);
+    // Validar los datos del formulario antes de almacenarlos
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|unique:users,email',
+        'password' => 'required|string|min:8',
+        'phone' => 'nullable|string', // Agregar validación para el número telefónico
+    ]);
 
-        // Crear el nuevo usuario
-        $user = new User([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
+    // Crear el nuevo usuario
+    $user = new User([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'password' => bcrypt($request->input('password')),
+        'phone' => $request->input('phone'), // Asigna el valor del número telefónico al nuevo usuario
+    ]);
 
-        $user->save();
+    $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
+    return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
     }
+
 
     public function show(User $user)
     {
@@ -55,29 +58,29 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+    $user->roles()->sync($request->roles);
 
-        $user -> roles()->sync($request -> roles);
+    // Validar los datos del formulario antes de actualizarlos
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|unique:users,email,' . $user->id,
+        'password' => 'nullable|string|min:8',
+        'phone' => 'nullable|string', // Agregar validación para el número telefónico
+    ]);
 
-        // Validar los datos del formulario antes de actualizarlos
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8',
-        ]);
+    // Actualizar los datos del usuario
+    $user->name = $request->input('name');
+    $user->email = $request->input('email');
+    $user->phone = $request->input('phone'); // Actualizar el número telefónico si se modificó
 
-        // Actualizar los datos del usuario
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->input('password'));
-        }
-        $user->save();
-
-        // Actualizar roles y permisos si estás utilizando Spatie Laravel Permission
-        // ...
-
-        return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente.');
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->input('password'));
     }
+    $user->save();
+
+    return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente.');
+    }
+
 
     public function destroy(User $user)
     {
